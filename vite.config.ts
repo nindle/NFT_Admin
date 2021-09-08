@@ -5,6 +5,7 @@ import vue from '@vitejs/plugin-vue'
 export default defineConfig({
   plugins: [vue()],
   server: {
+    open: true,
     proxy: {
       '/admin': {
         target: 'https://api.lionnft.io',

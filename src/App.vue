@@ -2,9 +2,7 @@
   <template v-if="is_login">
     <a-layout>
       <a-layout-header class="header">
-        <div class="logo">
-          管理后台
-        </div>
+        <div class="logo">管理后台</div>
         <div class="head-rgt">
           <a-dropdown>
             <a class="ant-dropdown-link">
@@ -25,7 +23,7 @@
         </div>
       </a-layout-header>
       <a-layout>
-        <a-layout-sider width="200" style="background: #fff;">
+        <a-layout-sider width="200" style="background: #fff">
           <a-menu
             mode="inline"
             v-model:selectedKeys="selectedKeys2"
@@ -89,7 +87,7 @@
             </a-sub-menu>
           </a-menu>
         </a-layout-sider>
-        <a-layout style="padding: 24px;">
+        <a-layout style="padding: 24px">
           <a-layout-content
             :style="{
               background: '#fff',
@@ -110,43 +108,43 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed } from 'vue'
-import { useRouter } from 'vue-router'
-import http from './utils/axios'
-import { message } from 'ant-design-vue'
-import { mapState, useStore } from 'vuex'
+import { defineComponent, ref, computed } from "vue";
+import { useRouter } from "vue-router";
+import http from "./utils/axios";
+import { message } from "ant-design-vue";
+import { mapState, useStore } from "vuex";
 
 export default defineComponent({
-  computed: mapState(['is_login']),
+  computed: mapState(["is_login"]),
   setup() {
-    const store = useStore()
-    const router = useRouter()
+    const store = useStore();
+    const router = useRouter();
 
     function menuClick(obj: any) {
-      router.push({ path: obj.key })
+      router.push({ path: obj.key });
     }
 
     function acctMenu(obj: any) {
-      if (obj.key == '/logout') {
-        http.post('/admin/logout', {}).then((resp) => {
-          const res = resp.data
-          message.success(res.msg)
-          store.commit('onlogout')
-          router.push({ path: '/login' })
-        })
+      if (obj.key == "/logout") {
+        http.post("/admin/logout", {}).then((resp) => {
+          const res = resp.data;
+          message.success(res.msg);
+          store.commit("onlogout");
+          router.push({ path: "/login" });
+        });
       } else {
-        router.push({ path: obj.key })
+        router.push({ path: obj.key });
       }
     }
 
     return {
       menuClick,
       acctMenu,
-      selectedKeys1: ref(['2']),
-      selectedKeys2: ref(['1']),
+      selectedKeys1: ref(["2"]),
+      selectedKeys2: ref(["1"]),
       collapsed: ref(false),
-      openKeys: ref(['sub1']),
-    }
+      openKeys: ref(["sub1"]),
+    };
   },
-})
+});
 </script>

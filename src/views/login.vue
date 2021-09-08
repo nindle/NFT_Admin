@@ -25,44 +25,44 @@
 </template>
 
 <script lang="ts">
-import axios from '../utils/axios'
-import utils from '../utils/index'
-import { useRouter } from 'vue-router'
-import { defineComponent, reactive, toRefs } from 'vue'
-import { message } from 'ant-design-vue'
-import { useStore } from 'vuex'
+import axios from "../utils/axios";
+import utils from "../utils/index";
+import { useRouter } from "vue-router";
+import { defineComponent, reactive, toRefs } from "vue";
+import { message } from "ant-design-vue";
+import { useStore } from "vuex";
 
 export default defineComponent({
   setup: () => {
-    const store = useStore()
-    const router = useRouter()
+    const store = useStore();
+    const router = useRouter();
 
     let state = reactive({
-      account:'',
-      passwd:'',
+      account: "",
+      passwd: "",
       is_load: false,
-    })
+    });
 
     const api = () => {
-      state.is_load = true
+      state.is_load = true;
 
       axios
         .post(
-          '/admin/login',
-          utils.formData({ account: state.account, passwd: state.passwd }),
+          "/admin/login",
+          utils.formData({ account: state.account, passwd: state.passwd })
         )
         .then((resp) => {
-          state.is_load = false
-          const res = resp.data
+          state.is_load = false;
+          const res = resp.data;
           if (res.code == 200) {
-            message.success(res.msg)
-            store.commit('onlogin')
-            router.push({ path: '/' })
+            message.success(res.msg);
+            store.commit("onlogin");
+            router.push({ path: "/" });
           }
-        })
-    }
+        });
+    };
 
-    return { api, ...toRefs(state) }
+    return { api, ...toRefs(state) };
   },
-})
+});
 </script>
